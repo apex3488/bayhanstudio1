@@ -1,0 +1,63 @@
+.layer {
+  --dive: 0;
+
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--c-void);
+  pointer-events: none;
+}
+
+.poster,
+.poster img,
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.poster img {
+  object-fit: cover;
+  object-position: 70% 50%;
+}
+
+.poster {
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.poster[data-hidden] {
+  opacity: 0;
+}
+
+/* Readability: text sits on the left (wide) or lower half (compact); the scene
+   darkens there, and deepens while the camera dives behind the manifesto. */
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(7 9 14 / 0.86) 0%, rgb(7 9 14 / 0.45) 38%, transparent 62%),
+    linear-gradient(0deg, rgb(7 9 14 / 0.9) 0%, transparent 32%),
+    rgb(7 9 14 / calc(var(--dive) * 0.72));
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .poster img {
+    object-position: 50% 0%;
+  }
+
+  .shade {
+    background:
+      linear-gradient(0deg, rgb(7 9 14 / 0.96) 0%, rgb(7 9 14 / 0.7) 38%, transparent 62%),
+      rgb(7 9 14 / calc(var(--dive) * 0.62));
+  }
+}
+
+/* Reduced motion: no fixed scene travelling with the page — a still hero image only */
+@media (prefers-reduced-motion: reduce) {
+  .layer {
+    position: absolute;
+    height: 100svh;
+  }
+}

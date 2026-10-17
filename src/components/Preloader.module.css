@@ -6,8 +6,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: grid;
-  place-items: center;
+  display: block;
   background: var(--c-void);
   clip-path: inset(0 0 0 0);
 }
@@ -16,51 +15,91 @@
   overflow: hidden;
 }
 
-.mark {
-  position: relative;
-  overflow: hidden;
-  padding-block: 0.2em;
-}
-
-/* Wordmark rises out of a mask, then the sensor line scans across it */
-.word {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 8vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--c-ice);
-  animation: rise 0.9s var(--ease-out) both;
-}
-
-.scan {
+.content {
   position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: var(--space-4) var(--gutter);
+}
+
+.brand {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4em;
+  overflow: hidden;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+/* Wordmark rises out of a mask before JavaScript arrives */
+.word {
+  font-size: clamp(2.6rem, 11vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--c-ice);
+  animation: rise 1s var(--ease-out) both;
+}
+
+.studio {
+  font-family: var(--font-text);
+  font-size: var(--text-s);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--c-ice-dim);
+  animation: rise 1s 0.12s var(--ease-out) both;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-ice-dim);
+}
+
+.counter {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 12vw, 10rem);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--c-ice);
+}
+
+.track {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--space-3);
+  left: var(--gutter);
+  height: 1px;
+  background: var(--c-line);
+  overflow: hidden;
+}
+
+/* Filled from real progress reported by JS */
+.bar {
+  position: absolute;
+  inset: 0;
   background: var(--c-blue);
-  box-shadow: 0 0 16px 2px var(--c-blue-glow);
+  box-shadow: 0 0 12px 1px var(--c-blue-glow);
+  transform: scaleX(0);
   transform-origin: left;
-  animation: scan 1s 0.25s var(--ease-in-out) both;
 }
 
 @keyframes rise {
   from {
     transform: translateY(110%);
-  }
-}
-
-@keyframes scan {
-  0% {
-    transform: scaleX(0);
-  }
-  60% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 0.25;
   }
 }

@@ -4,6 +4,7 @@ import { href } from '../app/paths';
 import type { RouteId } from '../app/routeIds';
 import { contacts } from '../content/contacts';
 import { ButtonLink } from './ButtonLink';
+import { SoundToggle } from '../features/sound/SoundToggle';
 import { LangSwitch } from './LangSwitch';
 import { Logo } from './Logo';
 import styles from './SiteHeader.module.css';
@@ -23,8 +24,19 @@ export function SiteHeader() {
   const { scrolled, hidden } = useHeaderVisibility(open);
 
   const links = [
-    { id: 'services' as const, label: t.nav.services },
-    { id: 'contact' as const, label: t.nav.contact },
+    { key: 'work', label: t.nav.work, href: `${href('home', locale)}#work`, current: false },
+    {
+      key: 'services',
+      label: t.nav.services,
+      href: href('services', locale),
+      current: isSection(routeId, 'services'),
+    },
+    {
+      key: 'contact',
+      label: t.nav.contact,
+      href: href('contact', locale),
+      current: isSection(routeId, 'contact'),
+    },
   ];
 
   // Mobile menu: lock page scroll, make the page behind inert, close on Escape.
@@ -65,11 +77,11 @@ export function SiteHeader() {
         <nav className={styles.nav} aria-label={t.a11y.mainNav}>
           <ul className={styles.navList}>
             {links.map((link) => (
-              <li key={link.id}>
+              <li key={link.key}>
                 <a
                   className={styles.navLink}
-                  href={href(link.id, locale)}
-                  aria-current={isSection(routeId, link.id) ? 'page' : undefined}
+                  href={link.href}
+                  aria-current={link.current ? 'page' : undefined}
                 >
                   {link.label}
                 </a>
@@ -79,7 +91,10 @@ export function SiteHeader() {
         </nav>
 
         <div className={styles.actions}>
-          <LangSwitch />
+          <SoundToggle />
+          <div className={styles.lang}>
+            <LangSwitch />
+          </div>
           <ButtonLink className={styles.cta} href={contacts.telegram} variant="secondary" external>
             {t.hero.ctaTelegram}
           </ButtonLink>
@@ -101,11 +116,11 @@ export function SiteHeader() {
         <nav aria-label={t.a11y.mainNav} className="shell">
           <ul className={styles.panelList}>
             {links.map((link, index) => (
-              <li key={link.id}>
+              <li key={link.key}>
                 <a
                   className={styles.panelLink}
-                  href={href(link.id, locale)}
-                  aria-current={isSection(routeId, link.id) ? 'page' : undefined}
+                  href={link.href}
+                  aria-current={link.current ? 'page' : undefined}
                   onClick={() => setOpen(false)}
                 >
                   <span className={styles.panelIndex} aria-hidden="true">
@@ -119,6 +134,9 @@ export function SiteHeader() {
           <ButtonLink href={contacts.telegram} external size="l">
             {t.hero.ctaTelegram}
           </ButtonLink>
+          <div className={styles.panelLang}>
+            <LangSwitch />
+          </div>
         </nav>
       </div>
     </header>

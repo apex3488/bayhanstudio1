@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { usePage } from '../app/PageContext';
+import { Cursor } from './Cursor';
 import { Preloader } from './Preloader';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
@@ -17,6 +18,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <SiteFooter />
+      <Cursor />
     </>
   );
 }

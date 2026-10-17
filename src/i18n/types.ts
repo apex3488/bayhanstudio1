@@ -15,6 +15,14 @@ export interface ServiceCopy {
   cta: string;
 }
 
+export interface WorkItem {
+  title: string;
+  /** "Concept study" or "Our project" — work is never presented as client work it is not */
+  kind: string;
+  summary: string;
+  tags: string;
+}
+
 export interface TextItem {
   title: string;
   text: string;
@@ -43,6 +51,7 @@ export interface Dictionary {
     menuClose: string;
   };
   nav: {
+    work: string;
     services: string;
     contact: string;
     privacy: string;
@@ -53,7 +62,10 @@ export interface Dictionary {
     subtitle: string;
     ctaPrimary: string;
     ctaTelegram: string;
+    ctaWork: string;
     scrollHint: string;
+    /** Minimal technical annotations around the hero frame */
+    meta: [string, string, string];
   };
   manifesto: {
     label: string;
@@ -83,11 +95,25 @@ export interface Dictionary {
     title: string;
     items: [TextItem, TextItem, TextItem, TextItem];
   };
+  work: {
+    label: string;
+    title: string;
+    intro: string;
+    items: [WorkItem, WorkItem, WorkItem];
+  };
   contactCta: {
     label: string;
     title: string;
     text: string;
     primary: string;
+    channelsHeading: string;
+  };
+  experience: {
+    loading: string;
+    soundOn: string;
+    soundOff: string;
+    soundLabel: string;
+    volume: string;
   };
   contactPage: {
     label: string;

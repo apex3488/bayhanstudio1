@@ -11,10 +11,16 @@ export function WhyBayhan() {
   useReveal(root);
 
   return (
-    <section ref={root} className={`shell grid ${styles.section}`} aria-labelledby="why-heading">
+    <section
+      ref={root}
+      className={`surface shell grid ${styles.section}`}
+      aria-labelledby="why-heading"
+    >
       <div className={styles.head}>
         <div data-reveal>
-          <Label index="04">{t.why.label}</Label>
+          <Label index="05" tone="accent">
+            {t.why.label}
+          </Label>
         </div>
         <h2 id="why-heading" className={styles.title} data-reveal="1">
           {t.why.title}

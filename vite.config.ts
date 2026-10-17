@@ -48,18 +48,19 @@ function devPageRenderer(): Plugin {
 }
 
 /**
- * Dev-only endpoint for `window.__bayhanCapturePoster()` (see RobotCanvas):
- * saves the rendered 3D frame as the static fallback poster.
+ * Dev-only endpoint for `window.__bayhanCapture(name, width)` (see ExperienceCanvas):
+ * saves a rendered frame of the 3D scene to public/media/<name>.webp.
  */
-function devPosterWriter(): Plugin {
-  const MAX_BYTES = 2 * 1024 * 1024;
+function devCaptureWriter(): Plugin {
+  const MAX_BYTES = 3 * 1024 * 1024;
   return {
-    name: 'bayhan:dev-poster-writer',
+    name: 'bayhan:dev-capture-writer',
     apply: 'serve',
     configureServer(server) {
-      server.middlewares.use('/__dev/robot-poster', (req, res) => {
-        if (req.method !== 'POST') {
-          res.statusCode = 405;
+      server.middlewares.use('/__dev/capture', (req, res) => {
+        const name = new URL(req.url ?? '', 'http://localhost').searchParams.get('name') ?? '';
+        if (req.method !== 'POST' || !/^[a-z0-9-]{1,40}$/.test(name)) {
+          res.statusCode = 400;
           return res.end();
         }
         const chunks: Buffer[] = [];
@@ -75,10 +76,10 @@ function devPosterWriter(): Plugin {
             res.statusCode = 400;
             return res.end();
           }
-          const dir = resolve(server.config.root, 'public', 'robot');
+          const dir = resolve(server.config.root, 'public', 'media');
           await mkdir(dir, { recursive: true });
-          await writeFile(join(dir, 'poster.webp'), data);
-          server.config.logger.info(`robot poster saved (${Math.round(size / 1024)} KB)`);
+          await writeFile(join(dir, `${name}.webp`), data);
+          server.config.logger.info(`captured media/${name}.webp (${Math.round(size / 1024)} KB)`);
           res.statusCode = 201;
           res.end();
         });
@@ -133,7 +134,7 @@ function githubPagesPreview(): Plugin {
 export default defineConfig({
   base: siteBase(),
   appType: 'custom',
-  plugins: [react(), devPageRenderer(), devPosterWriter(), githubPagesPreview()],
+  plugins: [react(), devPageRenderer(), devCaptureWriter(), githubPagesPreview()],
   define: {
     __SITE_ORIGIN__: JSON.stringify(siteOrigin()),
   },

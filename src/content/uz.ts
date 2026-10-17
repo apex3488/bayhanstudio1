@@ -7,12 +7,12 @@ export const uz: Dictionary = {
     home: {
       title: 'BAYHAN STUDIO — saytlar, Telegram-botlar va raqamli mahsulotlar',
       description:
-        'Oʻzbekiston va undan tashqaridagi biznes uchun premium saytlar, Telegram-botlar, Mini Apps, brending va veb-ilovalar.',
+        'Oʻzbekiston va undan tashqaridagi biznes uchun saytlar, internet-doʻkonlar, Telegram-botlar, Mini Apps, mobil ilovalar va brending.',
     },
     services: {
       title: 'Xizmatlar — BAYHAN STUDIO',
       description:
-        'BAYHAN STUDIOning beshta yoʻnalishi: saytlar, Telegram-botlar, Telegram Mini Apps, brending va veb-ilovalar.',
+        'BAYHAN STUDIOning oltita yoʻnalishi: saytlar, internet-doʻkonlar, Telegram-botlar, Mini Apps, mobil ilovalar va brending.',
     },
     contact: {
       title: 'Loyihani muhokama qilish — BAYHAN STUDIO',
@@ -45,10 +45,15 @@ export const uz: Dictionary = {
         description:
           'Sayt, ijtimoiy tarmoqlar va interfeyslar uchun logotip, vizual tizim, tipografika va ulardan foydalanish qoidalari.',
       },
-      'web-applications': {
-        title: 'Veb-ilovalar va raqamli mahsulotlar — BAYHAN STUDIO',
+      'online-stores': {
+        title: 'Internet-doʻkonlar yaratish — BAYHAN STUDIO',
         description:
-          'Boshqaruv panellari, mijoz kabinetlari, ichki vositalar va SaaS — interfeysdan ishlaydigan mahsulotgacha.',
+          'Tez mahsulot sahifalari, qulay buyurtma rasmiylashtirish hamda toʻlov va yetkazib berish integratsiyalariga ega internet-doʻkonlar.',
+      },
+      'mobile-apps': {
+        title: 'Mobil ilovalar yaratish — BAYHAN STUDIO',
+        description:
+          'iOS va Android ilovalari: interfeysni loyihalashdan App Store va Google Play doʻkonlarida nashrga tayyorlashgacha.',
       },
     },
   },
@@ -62,6 +67,7 @@ export const uz: Dictionary = {
     menuClose: 'Menyuni yopish',
   },
   nav: {
+    work: 'Ishlar',
     services: 'Xizmatlar',
     contact: 'Aloqa',
     privacy: 'Maxfiylik',
@@ -70,10 +76,12 @@ export const uz: Dictionary = {
     eyebrow: 'Future technology',
     title: 'Keyingi bosqichni biz yaratamiz.',
     subtitle:
-      'Oʻzbekiston va undan tashqaridagi biznes uchun premium saytlar, Telegram-botlar, Mini Apps, brending va veb-ilovalar.',
+      'Oʻzbekiston va undan tashqaridagi biznes uchun saytlar, internet-doʻkonlar, Telegram-botlar, Mini Apps, mobil ilovalar va brending.',
     ctaPrimary: 'Loyihani boshlash',
     ctaTelegram: 'Telegramda yozish',
+    ctaWork: 'Ishlarni koʻrish',
     scrollHint: 'Pastga aylantiring',
+    meta: ['Sentinel / 01', 'WebGL · live', 'RU · EN · UZ'],
   },
   manifesto: {
     label: 'Manifest',
@@ -81,7 +89,7 @@ export const uz: Dictionary = {
   },
   services: {
     label: 'Xizmatlar',
-    title: 'Beshta yoʻnalish. Bitta jamoa.',
+    title: 'Oltita yoʻnalish. Bitta jamoa.',
     intro:
       'Har bir yoʻnalish — alohida tajriba. Birgalikda ular brend haqidagi ilk taassurotdan har kuni foydalaniladigan mahsulotgacha boʻlgan yoʻlni qamrab oladi.',
     more: 'Batafsil',
@@ -144,19 +152,35 @@ export const uz: Dictionary = {
         ],
         cta: 'Brending haqida gaplashish',
       },
-      'web-applications': {
-        name: 'Veb-ilovalar',
-        short: 'Jarayonlaringiz yagona tizimda.',
+      'online-stores': {
+        name: 'Internet-doʻkonlar',
+        short: 'Sotish uchun yaratilgan vitrinalar.',
         description:
-          'Boshqaruv panellari, mijoz kabinetlari, ichki vositalar va SaaS-mahsulotlar — interfeysni loyihalashdan tortib oʻsishga tayyor, aniq arxitekturali ishlaydigan ilovagacha.',
-        value: 'Jadvallar va chatlarda yuritiladigan jarayonlar yagona ishonchli tizimga aylanadi.',
+          'Katalogingiz va xaridorlaringiz atrofida qurilgan elektron tijorat: tez mahsulot sahifalari, buyurtmagacha aniq yoʻl, bozoringizda mavjud toʻlov va yetkazib berish xizmatlari bilan integratsiya hamda jamoangiz uchun qulay boshqaruv paneli.',
+        value:
+          'Mahsulot sahifasidan buyurtmagacha boʻlgan har bir qadam toʻsiqlarni — va yoʻqotilgan savdolarni — kamaytirish uchun loyihalanadi.',
         includes: [
-          'Jarayonlar tahlili va mantiqni loyihalash',
-          'Jamoa va mijozlar uchun interfeyslar',
-          'Rollar, kirish huquqlari va maʼlumotlar bilan ishlash',
-          'Qayta yozmasdan rivojlantirish mumkin boʻlgan arxitektura',
+          'Katalog, filtrlar va mahsulot sahifalari',
+          'Telefonda qulay savat va buyurtma rasmiylashtirish',
+          'Toʻlov va yetkazib berish integratsiyalari',
+          'Jamoaning kundalik ishi uchun buyurtmalarni boshqarish',
         ],
-        cta: 'Mahsulot haqida gaplashish',
+        cta: 'Doʻkon haqida gaplashish',
+      },
+      'mobile-apps': {
+        name: 'Mobil ilovalar',
+        short: 'Mijozlaringiz choʻntagidagi mahsulot.',
+        description:
+          'Interfeysni loyihalashdan nashrgacha iOS va Android ilovalari: platformaga xos tajriba, push-bildirishnomalar va siz foydalanayotgan tizimlar bilan bogʻlanish.',
+        value:
+          'Shaxsiy ilova tasodifiy tashrif buyuruvchilarni xizmatingizga toʻgʻridan-toʻgʻri kira oladigan doimiy mijozlarga aylantiradi.',
+        includes: [
+          'iOS va Android uchun interfeys loyihasi',
+          'Yagona kod bazasida krossplatforma dasturlash',
+          'Push-bildirishnomalar va shaxsiy kabinet',
+          'App Store va Google Play doʻkonlarida nashrga tayyorlash',
+        ],
+        cta: 'Ilova haqida gaplashish',
       },
     },
   },
@@ -200,11 +224,48 @@ export const uz: Dictionary = {
       },
     ],
   },
+  work: {
+    label: 'Ishlar',
+    title: 'Tadqiqotlar va loyihalar.',
+    intro:
+      'Biz faqat mavjud narsani koʻrsatamiz. Konseptlar konsept deb belgilangan: ular yondashuv va vizual tilni sinash uchun, mijoz loyihalari emas.',
+    items: [
+      {
+        title: 'BAYHAN STUDIO 2.0',
+        kind: 'Bizning loyiha',
+        summary:
+          'Ushbu sayt: tashqi modellarsiz protsedural 3D-sahna, uch til, statik yigʻish va Web Audio ovozi.',
+        tags: 'WebGL · Motion · i18n',
+      },
+      {
+        title: 'Orbit',
+        kind: 'Konsept',
+        summary:
+          'Qahvaxona uchun Mini App: menyu, kerakli vaqtga oldindan buyurtma va Telegram ichidagi sodiqlik kartasi.',
+        tags: 'Mini App · UX · UI',
+      },
+      {
+        title: 'Atelier',
+        kind: 'Konsept',
+        summary:
+          'Kiyim brendi internet-doʻkoni vitrinasi: kolleksiyaning tahririy taqdimoti va uch qadamli buyurtma.',
+        tags: 'E-commerce · Web',
+      },
+    ],
+  },
   contactCta: {
     label: 'Aloqa',
     title: 'Loyihangiz bormi? Ikki daqiqada aytib bering.',
     text: 'Roʻyxatdan oʻtishsiz qisqa brif. Telegram yoki Instagramda javob beramiz.',
     primary: 'Brifni toʻldirish',
+    channelsHeading: 'Aloqa kanallari',
+  },
+  experience: {
+    loading: 'Yuklanmoqda',
+    soundOn: 'Ovoz yoqilgan',
+    soundOff: 'Ovoz oʻchirilgan',
+    soundLabel: 'Ovoz',
+    volume: 'Ovoz balandligi',
   },
   contactPage: {
     label: 'Brif',

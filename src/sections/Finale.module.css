@@ -1,0 +1,124 @@
+/* Transparent: the 3D layer returns behind this section */
+.section {
+  position: relative;
+  min-height: 150svh;
+  display: grid;
+  align-items: end;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: 40svh;
+  padding-bottom: var(--space-section);
+}
+
+.title {
+  max-width: 12ch;
+  font-size: clamp(3rem, 1rem + 8vw, 10rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-shadow: 0 2px 40px rgb(7 9 14 / 0.6);
+}
+
+.lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+
+.lead p {
+  max-width: 34ch;
+  font-size: var(--text-m);
+  color: var(--c-ice-dim);
+}
+
+.channels ul {
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--c-line-strong);
+}
+
+.channel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  text-decoration: none;
+  border-bottom: 1px solid var(--c-line-strong);
+  overflow: hidden;
+}
+
+/* Hover: a blue light passes along the row */
+.channel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(52 120 246 / 0.14), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.channel:hover::before {
+  transform: translateX(100%);
+}
+
+.channelName {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1rem + 3.4vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition:
+    transform 0.6s var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.channel:hover .channelName {
+  color: var(--c-blue-hover);
+  transform: translateX(0.15em);
+}
+
+.channelHandle {
+  display: none;
+  color: var(--c-ice-dim);
+}
+
+.channelArrow {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 50%;
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.channel:hover .channelArrow {
+  color: var(--c-void);
+  background: var(--c-blue);
+  border-color: var(--c-blue);
+}
+
+@media (min-width: 768px) {
+  .channelHandle {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    min-height: auto;
+  }
+
+  .inner {
+    padding-top: var(--space-section);
+  }
+}

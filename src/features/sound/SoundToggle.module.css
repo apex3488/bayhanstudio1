@@ -1,0 +1,91 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: var(--target);
+  min-height: var(--target);
+  padding: 0 0.5rem;
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-ice-dim);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+.toggle:hover,
+.wrap[data-on] .toggle {
+  color: var(--c-ice);
+}
+
+/* Four bars: flat line when off, a slow living waveform when on */
+.bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+
+.bars span {
+  width: 2px;
+  height: 2px;
+  background: currentColor;
+  transition: height var(--dur-ui) var(--ease-out);
+}
+
+.wrap[data-on] .bars span {
+  background: var(--c-blue-hover);
+  animation: wave 1.4s var(--ease-in-out) infinite alternate;
+}
+
+.wrap[data-on] .bars span:nth-child(2) {
+  animation-delay: -0.4s;
+}
+
+.wrap[data-on] .bars span:nth-child(3) {
+  animation-delay: -0.9s;
+}
+
+.wrap[data-on] .bars span:nth-child(4) {
+  animation-delay: -0.2s;
+}
+
+@keyframes wave {
+  from {
+    height: 3px;
+  }
+  to {
+    height: 14px;
+  }
+}
+
+.text {
+  display: none;
+}
+
+.volume {
+  display: none;
+  width: 72px;
+  accent-color: var(--c-blue);
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .text {
+    display: inline;
+  }
+
+  .volume {
+    display: block;
+  }
+}

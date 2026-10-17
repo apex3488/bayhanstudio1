@@ -1,4 +1,5 @@
 import { useRef, type ReactNode } from 'react';
+import { sound } from '../features/sound/engine';
 import { useMagnetic } from '../motion/useMagnetic';
 import { ArrowIcon } from './ArrowIcon';
 import styles from './ButtonLink.module.css';
@@ -43,12 +44,23 @@ export function ButtonLink({
     </>
   );
 
+  const handleClick = () => {
+    sound.play('tick');
+    onClick?.();
+  };
+  const handleEnter = () => sound.play('hover');
+
   const link = external ? (
-    <ExternalLink className={classes} href={href} onClick={onClick}>
+    <ExternalLink
+      className={classes}
+      href={href}
+      onClick={handleClick}
+      onPointerEnter={handleEnter}
+    >
       {content}
     </ExternalLink>
   ) : (
-    <a className={classes} href={href} onClick={onClick}>
+    <a className={classes} href={href} onClick={handleClick} onPointerEnter={handleEnter}>
       {content}
     </a>
   );

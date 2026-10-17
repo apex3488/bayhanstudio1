@@ -6,12 +6,12 @@ export const en: Dictionary = {
     home: {
       title: 'BAYHAN STUDIO — websites, Telegram bots and digital products',
       description:
-        'Premium websites, Telegram bots, Mini Apps, branding and web applications for businesses in Uzbekistan and beyond.',
+        'Websites, online stores, Telegram bots, Mini Apps, mobile apps and branding for businesses in Uzbekistan and beyond.',
     },
     services: {
       title: 'Services — BAYHAN STUDIO',
       description:
-        'Five directions of BAYHAN STUDIO: websites, Telegram bots, Telegram Mini Apps, branding and web applications.',
+        'Six directions of BAYHAN STUDIO: websites, online stores, Telegram bots, Mini Apps, mobile apps and branding.',
     },
     contact: {
       title: 'Start a project — BAYHAN STUDIO',
@@ -44,10 +44,15 @@ export const en: Dictionary = {
         description:
           'Logo, visual system, typography and usage rules for your website, social media and product interfaces.',
       },
-      'web-applications': {
-        title: 'Web applications and digital products — BAYHAN STUDIO',
+      'online-stores': {
+        title: 'Online store development — BAYHAN STUDIO',
         description:
-          'Dashboards, client portals, internal tools and SaaS — from interface design to a working product.',
+          'Online stores with fast product pages, a clear checkout and payment and delivery integrations.',
+      },
+      'mobile-apps': {
+        title: 'Mobile app development — BAYHAN STUDIO',
+        description:
+          'iOS and Android applications: from interface design to preparation for App Store and Google Play release.',
       },
     },
   },
@@ -61,6 +66,7 @@ export const en: Dictionary = {
     menuClose: 'Close menu',
   },
   nav: {
+    work: 'Work',
     services: 'Services',
     contact: 'Contact',
     privacy: 'Privacy',
@@ -69,10 +75,12 @@ export const en: Dictionary = {
     eyebrow: 'Future technology',
     title: 'We build what comes next.',
     subtitle:
-      'Premium websites, Telegram bots, Mini Apps, branding and web applications for businesses in Uzbekistan and beyond.',
+      'Websites, online stores, Telegram bots, Mini Apps, mobile apps and branding for businesses in Uzbekistan and beyond.',
     ctaPrimary: 'Start a project',
     ctaTelegram: 'Message on Telegram',
+    ctaWork: 'Explore our work',
     scrollHint: 'Scroll down',
+    meta: ['Sentinel / 01', 'WebGL · live', 'RU · EN · UZ'],
   },
   manifesto: {
     label: 'Manifesto',
@@ -80,7 +88,7 @@ export const en: Dictionary = {
   },
   services: {
     label: 'Services',
-    title: 'Five directions. One team.',
+    title: 'Six directions. One team.',
     intro:
       'Each direction is its own expertise. Together they cover the path from the first impression of a brand to a product people use every day.',
     more: 'Learn more',
@@ -143,19 +151,35 @@ export const en: Dictionary = {
         ],
         cta: 'Discuss branding',
       },
-      'web-applications': {
-        name: 'Web applications',
-        short: 'Your processes in one system.',
+      'online-stores': {
+        name: 'Online stores',
+        short: 'Storefronts built to sell.',
         description:
-          'Dashboards, client portals, internal tools and SaaS products — from interface design to a working application with a clear architecture that can grow.',
-        value: 'Processes that live in spreadsheets and chats become one reliable system.',
+          'E-commerce built around your catalogue and your customers: fast product pages, a clear path to checkout, integrations with payment and delivery services available in your market, and an admin your team can actually use.',
+        value:
+          'Every step from product page to order is designed to remove friction — and lost sales.',
         includes: [
-          'Process analysis and logic design',
-          'Interfaces for your team and your clients',
-          'Roles, permissions and data handling',
-          'An architecture that can evolve without a rewrite',
+          'Catalogue, filters and product pages',
+          'Cart and checkout designed for mobile',
+          'Payment and delivery integrations',
+          'Order management your team can run every day',
         ],
-        cta: 'Discuss a product',
+        cta: 'Discuss a store',
+      },
+      'mobile-apps': {
+        name: 'Mobile applications',
+        short: 'Products in your customers’ pocket.',
+        description:
+          'iOS and Android applications from interface design to release: platform-native experiences, push notifications and a connection to the systems you already run.',
+        value:
+          'A dedicated app turns occasional visitors into regular customers with direct access to your service.',
+        includes: [
+          'Interface design for iOS and Android',
+          'Cross-platform development on one codebase',
+          'Push notifications and user accounts',
+          'Preparation for App Store and Google Play release',
+        ],
+        cta: 'Discuss an app',
       },
     },
   },
@@ -199,11 +223,48 @@ export const en: Dictionary = {
       },
     ],
   },
+  work: {
+    label: 'Work',
+    title: 'Studies and projects.',
+    intro:
+      'We only show what exists. Concepts are labelled as concepts: they test approaches and visual language and are not client projects.',
+    items: [
+      {
+        title: 'BAYHAN STUDIO 2.0',
+        kind: 'Our project',
+        summary:
+          'This website: a procedural 3D scene with no external models, three languages, a static build and Web Audio sound.',
+        tags: 'WebGL · Motion · i18n',
+      },
+      {
+        title: 'Orbit',
+        kind: 'Concept study',
+        summary:
+          'A Mini App for a coffee shop: menu, pre-order for a chosen time and a loyalty card inside Telegram.',
+        tags: 'Mini App · UX · UI',
+      },
+      {
+        title: 'Atelier',
+        kind: 'Concept study',
+        summary:
+          'A storefront for a fashion label: an editorial collection story and a three-step checkout.',
+        tags: 'E-commerce · Web',
+      },
+    ],
+  },
   contactCta: {
     label: 'Contact',
     title: 'Have a project in mind? Tell us in two minutes.',
     text: 'A short brief, no sign-up. We reply on Telegram or Instagram.',
     primary: 'Fill in the brief',
+    channelsHeading: 'Channels',
+  },
+  experience: {
+    loading: 'Loading',
+    soundOn: 'Sound on',
+    soundOff: 'Sound off',
+    soundLabel: 'Sound',
+    volume: 'Volume',
   },
   contactPage: {
     label: 'Brief',

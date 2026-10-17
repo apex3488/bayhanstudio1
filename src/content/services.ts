@@ -1,10 +1,11 @@
 /** Service directions, in display order. Text lives in the locale dictionaries. */
 export const serviceIds = [
   'websites',
+  'online-stores',
   'telegram-bots',
   'mini-apps',
+  'mobile-apps',
   'branding',
-  'web-applications',
 ] as const;
 
 export type ServiceId = (typeof serviceIds)[number];

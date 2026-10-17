@@ -6,7 +6,7 @@ interface Props {
 }
 
 /** Any failure in the 3D chunk (load error, shader error) falls back to the poster. */
-export class RobotErrorBoundary extends Component<Props, { failed: boolean }> {
+export class SceneErrorBoundary extends Component<Props, { failed: boolean }> {
   state = { failed: false };
 
   static getDerivedStateFromError() {
@@ -14,7 +14,7 @@ export class RobotErrorBoundary extends Component<Props, { failed: boolean }> {
   }
 
   componentDidCatch(error: unknown) {
-    if (import.meta.env.DEV) console.warn('[robot] 3D scene disabled:', error);
+    if (import.meta.env.DEV) console.warn('[experience] 3D scene disabled:', error);
     this.props.onError();
   }
 

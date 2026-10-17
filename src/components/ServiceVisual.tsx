@@ -87,27 +87,52 @@ const VISUALS: Record<ServiceId, ReactNode> = {
     </g>
   ),
   // Modular blocks locking together like engineered components.
-  'web-applications': (
+  // A storefront: product grid resolving into a single lit checkout action.
+  'online-stores': (
     <g>
-      {[0, 1, 2, 3].map((col) =>
-        [0, 1, 2].map((row) => (
-          <rect
-            key={`${col}-${row}`}
-            x={34 + col * 44}
-            y={22 + row * 30}
-            width="38"
-            height="24"
-            rx="3"
-            className={
-              col === 2 && row === 1 ? styles.accent : (col + row) % 2 ? styles.line : styles.plane
-            }
-          />
+      {[0, 1, 2].map((col) =>
+        [0, 1].map((row) => (
+          <g key={`${col}-${row}`}>
+            <rect
+              x={40 + col * 56}
+              y={20 + row * 56}
+              width="48"
+              height="36"
+              rx="3"
+              className={(col + row) % 2 ? styles.line : styles.plane}
+            />
+            <rect
+              x={40 + col * 56}
+              y={60 + row * 56}
+              width="30"
+              height="4"
+              rx="1"
+              className={styles.dim}
+            />
+          </g>
         )),
       )}
-      <path
-        d="M34 140 L70 128 L106 132 L142 116 L178 120 L206 104"
-        className={`${styles.line} ${styles.flow}`}
-      />
+      <path d="M212 40 v84" className={styles.line} />
+      <rect x="160" y="132" width="48" height="12" rx="2" className={styles.accent} />
+      <path d="M40 138 h100" className={`${styles.line} ${styles.flow}`} />
+    </g>
+  ),
+  // Two devices, one product: an app shared across platforms.
+  'mobile-apps': (
+    <g>
+      <g className={styles.slideLeft}>
+        <rect x="62" y="22" width="52" height="112" rx="10" className={styles.line} />
+        <rect x="70" y="40" width="36" height="30" rx="3" className={styles.plane} />
+        <rect x="70" y="78" width="28" height="5" rx="1" className={styles.dim} />
+        <rect x="70" y="88" width="20" height="5" rx="1" className={styles.dim} />
+      </g>
+      <g className={styles.slideRight}>
+        <rect x="126" y="34" width="52" height="112" rx="10" className={styles.plane} />
+        <rect x="134" y="52" width="36" height="5" rx="1" className={styles.dim} />
+        <rect x="134" y="62" width="24" height="5" rx="1" className={styles.dim} />
+        <circle cx="152" cy="104" r="12" className={styles.line} />
+        <rect x="134" y="128" width="36" height="8" rx="2" className={styles.accent} />
+      </g>
     </g>
   ),
 };

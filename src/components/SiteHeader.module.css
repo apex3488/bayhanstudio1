@@ -87,6 +87,21 @@
   display: none;
 }
 
+/* Narrow phones: languages move into the menu panel so the bar never overflows */
+.lang {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .lang {
+    display: block;
+  }
+
+  .panelLang {
+    display: none;
+  }
+}
+
 .menuButton {
   display: inline-grid;
   place-items: center;
