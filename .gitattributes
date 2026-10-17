@@ -1,0 +1,5 @@
+# Keep LF everywhere (Prettier enforces "endOfLine": "lf"), regardless of core.autocrlf.
+* text=auto eol=lf
+
+*.webp binary
+*.woff2 binary

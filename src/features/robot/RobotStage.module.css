@@ -1,0 +1,45 @@
+.stage {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  pointer-events: none;
+  /* The sculpture dissolves into the void instead of ending on a hard edge */
+  mask-image:
+    radial-gradient(closest-side, #000 72%, transparent 100%),
+    linear-gradient(to bottom, #000 62%, transparent 96%);
+  mask-composite: intersect;
+}
+
+/* Controlled blue light behind the head — the only glow in the hero */
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 18% 14% 26%;
+  background: radial-gradient(closest-side, rgb(52 120 246 / 0.22), transparent);
+  filter: blur(24px);
+}
+
+.poster,
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 900ms var(--ease-out);
+}
+
+.poster {
+  object-fit: contain;
+}
+
+.poster[data-hidden] {
+  opacity: 0;
+}
+
+.canvas {
+  opacity: 0;
+}
+
+.canvas[data-visible] {
+  opacity: 1;
+}

@@ -1,0 +1,86 @@
+.button {
+  --btn-pad: var(--space-3);
+
+  border: 0;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 52px;
+  padding-inline: var(--btn-pad) calc(var(--btn-pad) - 4px);
+  font-family: var(--font-text);
+  font-size: var(--text-s);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  border-radius: var(--radius-s);
+  transition:
+    color var(--dur-micro) var(--ease-out),
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    box-shadow var(--dur-ui) var(--ease-out);
+}
+
+.l {
+  --btn-pad: var(--space-4);
+
+  min-height: 64px;
+  font-size: var(--text-base);
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-s);
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+
+.button:hover .icon {
+  transform: translateX(3px);
+}
+
+/* Primary: void text on blue 4.9:1 (WCAG AA for any text size) */
+.primary {
+  color: var(--c-void);
+  background: var(--c-blue);
+}
+
+.primary .icon {
+  background: rgb(7 9 14 / 0.12);
+}
+
+.primary:hover {
+  background: var(--c-blue-hover);
+  box-shadow: var(--glow-blue);
+}
+
+.secondary {
+  color: var(--c-ice);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--c-line-strong);
+}
+
+.secondary .icon {
+  color: var(--c-blue-hover);
+}
+
+.secondary:hover {
+  background: var(--c-graphite);
+  box-shadow: inset 0 0 0 1px var(--c-blue);
+}
+
+.magnet {
+  display: inline-flex;
+  will-change: transform;
+}
+
+@media (forced-colors: active) {
+  .button {
+    border: 1px solid ButtonText;
+  }
+}

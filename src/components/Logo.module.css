@@ -1,0 +1,35 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  color: var(--c-ice);
+  white-space: nowrap;
+}
+
+.mark {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: var(--text-s);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.studio {
+  font-family: var(--font-text);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  color: var(--c-ice-dim);
+}
+
+/* Narrow phones: the header must fit the logo and all three language links */
+@media (max-width: 399px) {
+  .studio {
+    display: none;
+  }
+}

@@ -1,0 +1,118 @@
+.hero {
+  position: relative;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: var(--space-3) var(--space-5);
+  align-content: end;
+}
+
+/* Hero elements wait hidden only when JS motion is active (see motion/intro.ts) */
+:global(html.motion) [data-hero-title],
+:global(html.motion) [data-hero-item],
+:global(html.motion) [data-hero-stage] {
+  visibility: hidden;
+}
+
+.stageWrap {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  width: min(100%, 52svh);
+  margin-bottom: calc(var(--space-5) * -1);
+}
+
+.copy {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+.title {
+  max-width: 13ch;
+  font-size: var(--text-hero);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+}
+
+.subtitle {
+  max-width: 46ch;
+  font-size: var(--text-m);
+  line-height: 1.5;
+  color: var(--c-ice-dim);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.scrollHint {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-rows: 1fr;
+    align-items: end;
+  }
+
+  .stageWrap {
+    grid-column: 6 / -1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    width: min(100%, 78svh);
+    margin: 0 calc(var(--gutter) * -0.5) 0 0;
+  }
+
+  .copy {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+    padding-bottom: var(--space-4);
+  }
+
+  .scrollHint {
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--c-ice-dim);
+  }
+
+  .scrollLine {
+    position: relative;
+    width: 1px;
+    height: 48px;
+    overflow: hidden;
+    background: var(--c-line);
+  }
+
+  .scrollLine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--c-blue);
+    animation: drip 2.4s var(--ease-in-out) infinite;
+  }
+}
+
+@keyframes drip {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}

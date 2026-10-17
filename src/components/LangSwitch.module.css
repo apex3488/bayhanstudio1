@@ -1,0 +1,39 @@
+.list {
+  display: flex;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--target);
+  min-height: var(--target);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--c-ice-dim);
+  text-decoration: none;
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--c-ice);
+}
+
+/* Active language: ice text + blue sensor line; not colour alone (underline shape) */
+.link[aria-current='page'] {
+  color: var(--c-ice);
+}
+
+.link[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  background: var(--c-blue);
+  translate: -50% 0;
+}

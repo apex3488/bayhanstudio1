@@ -1,0 +1,88 @@
+.visual {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.line {
+  stroke: var(--c-line-strong);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.plane {
+  fill: var(--c-graphite-2);
+  stroke: var(--c-line);
+  stroke-width: 1;
+}
+
+.solid {
+  fill: rgb(244 247 252 / 0.7);
+}
+
+.dim {
+  fill: rgb(244 247 252 / 0.18);
+}
+
+.dot {
+  fill: rgb(244 247 252 / 0.3);
+}
+
+.accent {
+  fill: var(--c-blue);
+  filter: drop-shadow(0 0 6px rgb(52 120 246 / 0.6));
+}
+
+/* Subtle idle motion; paused by the global reduced-motion rule */
+.front {
+  animation: float 6s var(--ease-in-out) infinite alternate;
+}
+
+.flow {
+  stroke-dasharray: 4 6;
+  animation: flow 3s linear infinite;
+}
+
+.slideLeft {
+  animation: slide-left 5s var(--ease-in-out) infinite alternate;
+}
+
+.slideRight {
+  animation: slide-right 5s var(--ease-in-out) infinite alternate;
+}
+
+.orbit {
+  transform-origin: 184px 40px;
+  stroke-dasharray: 60 30;
+  animation: spin 9s linear infinite;
+}
+
+@keyframes float {
+  to {
+    transform: translate(-4px, -4px);
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

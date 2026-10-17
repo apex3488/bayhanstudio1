@@ -1,0 +1,181 @@
+.form,
+.preview {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field,
+.fieldset {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  padding: 0;
+  font-weight: 600;
+}
+
+.req {
+  font-weight: 400;
+  color: var(--c-ice-dim);
+}
+
+.hint {
+  font-size: var(--text-s);
+  color: var(--c-ice-dim);
+}
+
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.75rem var(--space-2);
+  font: inherit;
+  color: var(--c-ice);
+  background: var(--c-graphite);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--radius-s);
+  transition: border-color var(--dur-micro) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--c-ice-mute);
+}
+
+.input:hover {
+  border-color: rgb(244 247 252 / 0.4);
+}
+
+.input:focus-visible {
+  border-color: var(--c-blue);
+  outline-offset: 1px;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--c-error-line);
+}
+
+.textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.counter {
+  justify-self: end;
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-ice-dim);
+}
+
+/* Error: icon-like prefix + colour + text, never colour alone */
+.error {
+  font-size: var(--text-s);
+  font-weight: 600;
+  color: var(--c-error);
+}
+
+.error::before {
+  content: '! ';
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  padding-inline: var(--space-2);
+  font-size: var(--text-s);
+  font-weight: 600;
+  color: var(--c-ice-dim);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--radius-pill);
+  transition:
+    color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    background-color var(--dur-micro) var(--ease-out);
+}
+
+.chip:hover span {
+  color: var(--c-ice);
+  border-color: rgb(244 247 252 / 0.4);
+}
+
+/* Selected: filled + check mark, so state is not conveyed by colour alone */
+.chip input:checked + span {
+  color: var(--c-void);
+  background: var(--c-ice);
+  border-color: var(--c-ice);
+}
+
+.chip input:checked + span::before {
+  content: '✓';
+  margin-right: 0.5em;
+}
+
+.chip input:focus-visible + span {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+}
+
+.previewHeading {
+  font-size: var(--text-l);
+}
+
+.previewHeading:focus {
+  outline: none;
+}
+
+.message {
+  width: 100%;
+  padding: var(--space-2);
+  font: inherit;
+  font-size: var(--text-s);
+  line-height: 1.6;
+  color: var(--c-ice);
+  white-space: pre-wrap;
+  background: var(--c-graphite);
+  border: 1px solid var(--c-line-strong);
+  border-left: 2px solid var(--c-blue);
+  border-radius: var(--radius-s);
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.status {
+  display: grid;
+  gap: var(--space-1);
+  min-height: 1.5em;
+  color: var(--c-ice-dim);
+}
+
+.warning {
+  color: var(--c-error);
+}

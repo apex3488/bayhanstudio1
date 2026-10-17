@@ -1,0 +1,230 @@
+@import './fonts.css';
+@import './tokens.css';
+
+/* ── Reset ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--space-2));
+  scrollbar-color: var(--c-graphite-2) var(--c-void);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  color: var(--c-ice);
+  background: var(--c-void);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+img,
+svg,
+canvas,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  color: var(--c-void);
+  background: var(--c-blue);
+}
+
+/* ── Focus: always visible, never removed ─────────────────── */
+:focus-visible {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+  border-radius: var(--radius-s);
+}
+
+main:focus {
+  outline: none;
+}
+
+html.menu-open {
+  overflow: hidden;
+}
+
+/* ── Layout utilities ─────────────────────────────────────── */
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-1);
+  left: var(--space-1);
+  z-index: var(--z-skip);
+  padding: var(--space-1) var(--space-2);
+  font-weight: 600;
+  color: var(--c-void);
+  background: var(--c-ice);
+  border-radius: var(--radius-s);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ── Static, non-hydrated pages: language gate and 404 ────── */
+.static-page {
+  display: grid;
+  align-content: center;
+  gap: var(--space-5);
+  min-height: 100svh;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding: var(--space-5) var(--gutter);
+}
+
+.static-page__brand {
+  font-family: var(--font-display);
+  font-size: var(--text-s);
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.static-page__list {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.static-page__block h1,
+.static-page__block h2 {
+  margin-bottom: var(--space-1);
+  font-size: var(--text-l);
+}
+
+.static-page__block p {
+  margin-bottom: var(--space-1);
+  color: var(--c-ice-dim);
+}
+
+.static-page__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  font-family: var(--font-display);
+  font-size: var(--text-m);
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--c-blue);
+}
+
+.static-page__link:hover {
+  color: var(--c-blue-hover);
+}
+
+/* ── Motion hand-off ──────────────────────────────────────── */
+/* Scroll-revealed blocks wait hidden only while JS motion is active (motion/intro.ts).
+   A 4 s safety timeout removes .motion if scripts never run, so content always shows. */
+html.motion [data-reveal] {
+  visibility: hidden;
+}
+
+/* Cross-document page transitions where supported; plain navigation elsewhere */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: 280ms var(--ease-in-out) both vt-out;
+  }
+
+  ::view-transition-new(root) {
+    animation: 520ms var(--ease-out) both vt-in;
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ── Reduced motion: keep content, drop non-essential movement ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,93 @@
+/*
+ * Design tokens — the single source of colour, type, space, layout and motion values.
+ * Components reference tokens only; raw values belong here.
+ */
+:root {
+  /* ── Colour ─────────────────────────────────────────────── */
+  --c-void: #07090e;
+  --c-graphite: #101827;
+  --c-graphite-2: #172033;
+  --c-blue: #3478f6;
+  --c-blue-hover: #5a91f8;
+  --c-blue-glow: rgb(52 120 246 / 0.35);
+  --c-ice: #f4f7fc;
+  /* Ratios are verified by `npm run contrast` (scripts/check-contrast.ts) */
+  --c-ice-dim: rgb(244 247 252 / 0.68); /* 8.6:1 on void */
+  /* 5.0:1 on void — only for non-essential meta text */
+  --c-ice-mute: rgb(244 247 252 / 0.5);
+  --c-line: rgb(244 247 252 / 0.12);
+  /* Form errors are always paired with text and a "!" prefix, never colour alone */
+  --c-error: #ffb3b3;
+  --c-error-line: #ff8a8a;
+  --c-line-strong: rgb(244 247 252 / 0.24);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-display: 'Unbounded', 'Unbounded Fallback', system-ui, sans-serif;
+  --font-text: 'Manrope', 'Manrope Fallback', system-ui, sans-serif;
+
+  /* Fluid scale between 360px and 1440px viewports */
+  --text-xs: 0.8125rem; /* 13px — labels only */
+  --text-s: 0.9375rem; /* 15px */
+  --text-base: clamp(1rem, 0.96rem + 0.19vw, 1.125rem); /* 16→18 */
+  --text-m: clamp(1.125rem, 1.04rem + 0.37vw, 1.375rem); /* 18→22 */
+  --text-l: clamp(1.5rem, 1.25rem + 1.11vw, 2.25rem); /* 24→36 */
+  --text-xl: clamp(2rem, 1.5rem + 2.22vw, 3.5rem); /* 32→56 */
+  --text-2xl: clamp(2.5rem, 1.67rem + 3.7vw, 5rem); /* 40→80 */
+  --text-hero: clamp(2.75rem, 1.5rem + 5.6vw, 6.5rem); /* 44→104 */
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.2;
+  --leading-body: 1.6;
+
+  --tracking-display: -0.035em;
+  --tracking-label: 0.16em;
+
+  /* ── Space (8px rhythm) ─────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-section: clamp(5rem, 3rem + 8vw, 11rem);
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  --gutter: clamp(16px, 4vw, 64px);
+  --grid-gap: clamp(16px, 1.6vw, 24px);
+  --grid-cols: 4;
+  --shell-max: 1680px;
+  --header-h: 72px;
+  --measure: 62ch;
+
+  /* ── Shape & depth ──────────────────────────────────────── */
+  --radius-s: 4px;
+  --radius-m: 10px;
+  --radius-pill: 999px;
+  --glow-blue: 0 0 0 1px rgb(52 120 246 / 0.5), 0 8px 32px -8px var(--c-blue-glow);
+
+  --z-header: 50;
+  --z-skip: 100;
+
+  /* ── Motion (full system in stage D) ────────────────────── */
+  --dur-micro: 160ms;
+  --dur-ui: 320ms;
+  --dur-reveal: 720ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Minimum interactive target (WCAG 2.5.8 asks 24px; we use 44px) */
+  --target: 44px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-cols: 8;
+    --header-h: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-cols: 12;
+  }
+}
