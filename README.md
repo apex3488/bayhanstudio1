@@ -61,6 +61,7 @@ $env:SITE_BASE = '/repo-name/'; npm run build; npm run preview
    git push -u origin main
    ```
 3. В репозитории: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+   Важно: не «Deploy from a branch». В этом режиме GitHub раздаёт исходники, и по ссылке открывается пустая страница.
 4. Каждый push в `main` запускает `.github/workflows/deploy.yml`: typecheck → lint → contrast → build → deploy. Ход — во вкладке **Actions**.
 5. Сайт откроется по адресу `https://<user>.github.io/<repo>/` (HTTPS для `github.io` включён автоматически). Для собственного домена укажите его в **Settings → Pages → Custom domain** и включите **Enforce HTTPS**; base path переключится на `/` сам.
 6. После публикации обновите ссылку в био Telegram `@APEX348` (сейчас там адрес, который отдаёт 404) и в описании канала.
