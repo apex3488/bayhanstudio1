@@ -1,66 +1,85 @@
-import { useRef } from 'react';
-import { gsap, useGSAP } from '../motion/gsap';
-import { media } from '../motion/tokens';
-import styles from './Cursor.module.css';
+"use client";
 
-const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label';
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { motionEnabled } from "@/lib/motion";
+
+const INTERACTIVE = "a, button, [data-cursor], input, textarea, select, summary, label[for]";
 
 /**
- * Desktop-only cursor companion: a ring that trails the native pointer and opens
- * over interactive elements. The system cursor is never hidden, so focus, text
- * selection and OS accessibility cursors keep working. Disabled for touch,
- * coarse pointers and reduced motion.
+ * Desktop-only follower ring + magnetic pull for [data-magnetic] elements.
+ * The native cursor stays visible: the ring is an accent, not a replacement.
  */
-export function Cursor() {
+export default function Cursor() {
   const ring = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
+  useEffect(() => {
     const el = ring.current;
-    if (!el) return;
-    const mm = gsap.matchMedia();
-    mm.add(`${media.motion} and ${media.finePointer}`, () => {
-      const toX = gsap.quickTo(el, 'x', { duration: 0.45, ease: 'power3.out' });
-      const toY = gsap.quickTo(el, 'y', { duration: 0.45, ease: 'power3.out' });
-      let shown = false;
+    if (!el || !motionEnabled()) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
-      const onMove = (event: PointerEvent) => {
-        if (event.pointerType !== 'mouse') return;
-        if (!shown) {
-          gsap.set(el, { x: event.clientX, y: event.clientY });
-          el.dataset.visible = '';
-          shown = true;
-        }
-        toX(event.clientX);
-        toY(event.clientY);
-      };
-      const onOver = (event: PointerEvent) => {
-        const target = event.target instanceof Element ? event.target.closest(INTERACTIVE) : null;
-        if (target) el.dataset.active = '';
-        else delete el.dataset.active;
-      };
-      const onLeave = () => {
-        delete el.dataset.visible;
-        shown = false;
-      };
-      const onDown = () => (el.dataset.pressed = '');
-      const onUp = () => delete el.dataset.pressed;
+    const x = gsap.quickTo(el, "x", { duration: 0.45, ease: "power3.out" });
+    const y = gsap.quickTo(el, "y", { duration: 0.45, ease: "power3.out" });
+    let shown = false;
+    let magnet: HTMLElement | null = null;
 
-      window.addEventListener('pointermove', onMove, { passive: true });
-      document.addEventListener('pointerover', onOver, { passive: true });
-      document.documentElement.addEventListener('pointerleave', onLeave);
-      window.addEventListener('pointerdown', onDown, { passive: true });
-      window.addEventListener('pointerup', onUp, { passive: true });
-      return () => {
-        window.removeEventListener('pointermove', onMove);
-        document.removeEventListener('pointerover', onOver);
-        document.documentElement.removeEventListener('pointerleave', onLeave);
-        window.removeEventListener('pointerdown', onDown);
-        window.removeEventListener('pointerup', onUp);
-        delete el.dataset.visible;
-      };
-    });
-    return () => mm.revert();
-  });
+    const release = () => {
+      if (!magnet) return;
+      gsap.to(magnet, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1, 0.45)" });
+      magnet = null;
+    };
 
-  return <div ref={ring} className={styles.ring} aria-hidden="true" />;
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      if (!shown) {
+        shown = true;
+        gsap.set(el, { x: e.clientX, y: e.clientY });
+        el.classList.add("is-visible");
+      }
+      x(e.clientX);
+      y(e.clientY);
+
+      const target = e.target as Element | null;
+      el.classList.toggle("is-active", !!target?.closest?.(INTERACTIVE));
+      const labelled = target?.closest?.<HTMLElement>("[data-cursor-label]") ?? null;
+      const text = labelled?.dataset.cursorLabel ?? "";
+      if (el.dataset.label !== text) el.dataset.label = text;
+      el.classList.toggle("has-label", !!text);
+
+      const m = target?.closest?.<HTMLElement>("[data-magnetic]") ?? null;
+      if (m !== magnet) release();
+      if (m) {
+        magnet = m;
+        const r = m.getBoundingClientRect();
+        gsap.to(m, {
+          x: (e.clientX - (r.left + r.width / 2)) * 0.28,
+          y: (e.clientY - (r.top + r.height / 2)) * 0.28,
+          duration: 0.5,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
+      }
+    };
+    const onLeave = () => {
+      shown = false;
+      el.classList.remove("is-visible");
+      release();
+    };
+    const onDown = () => el.classList.add("is-down");
+    const onUp = () => el.classList.remove("is-down");
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointerup", onUp);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointerup", onUp);
+      release();
+    };
+  }, []);
+
+  return <div ref={ring} className="cursor" aria-hidden="true" data-label="" />;
 }

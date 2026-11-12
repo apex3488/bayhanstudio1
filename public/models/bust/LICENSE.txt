@@ -1,0 +1,3 @@
+Marble Bust 01 by Rico Cilliers, Poly Haven (https://polyhaven.com/a/marble_bust_01).
+License: CC0 1.0 Universal (public domain). Attribution is not required; credited voluntarily.
+Only the geometry and the 1k normal map are used.

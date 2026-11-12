@@ -1,0 +1,453 @@
+/* ==========================================================================
+   V3 — carousel, light and depth (loaded last)
+   ========================================================================== */
+
+/* ---- a pool of light that follows the pointer across the whole page ---- */
+.spot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 720px;
+  height: 720px;
+  margin: -360px 0 0 -360px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20, 108, 255, 0.16), rgba(20, 108, 255, 0.05) 45%, rgba(20, 108, 255, 0) 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+  will-change: transform;
+}
+.spot.is-on {
+  opacity: 1;
+}
+@media (hover: none) {
+  .spot {
+    display: none;
+  }
+}
+
+/* ---- italic accents carry a breath of light ---- */
+.hero__title em,
+.display em,
+.h2 em {
+  text-shadow: 0 0 42px rgba(56, 164, 255, 0.55);
+}
+
+/* ---- buttons: a sheen crosses on hover ---- */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .btn:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.9s var(--ease);
+  }
+}
+.btn--primary {
+  box-shadow: 0 18px 44px -18px rgba(20, 108, 255, 0.9);
+}
+
+/* ---- marquee fades into the dark at both ends ---- */
+.marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ---- section headings get a ruled, glowing baseline ---- */
+.shead .rule {
+  background: linear-gradient(90deg, var(--blue-hi), var(--hair-2) 28%, var(--hair) 100%);
+  box-shadow: 0 0 18px -2px rgba(56, 164, 255, 0.6);
+}
+
+/* ---- service rows: a blade of light marks the active row ---- */
+.order__row::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--pad) * -1);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--blue-hi);
+  box-shadow: 0 0 18px 2px rgba(56, 164, 255, 0.9);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.5s var(--ease);
+}
+@media (hover: hover) {
+  .order__row:hover::after {
+    transform: scaleY(1);
+  }
+}
+
+/* ==========================================================================
+   Project carousel
+   ========================================================================== */
+.gallery {
+  position: relative;
+  padding: var(--space) 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+.gallery__glow {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  z-index: -1;
+  width: min(1200px, 110vw);
+  aspect-ratio: 2 / 1;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, rgba(20, 108, 255, 0.34), rgba(20, 108, 255, 0.08) 55%, rgba(20, 108, 255, 0));
+  filter: blur(30px);
+  pointer-events: none;
+}
+.gallery__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 18px clamp(24px, 4vw, 72px);
+  align-items: end;
+  padding: 0 var(--pad);
+  margin-bottom: clamp(32px, 4.4vw, 64px);
+}
+.gallery__head .label {
+  margin-bottom: 16px;
+}
+.gallery__lead {
+  font-size: 1rem;
+  max-width: 40ch;
+}
+
+.rail__view {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+  outline-offset: -4px;
+  /* touch devices snap natively; with a mouse the script settles the slide */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.rail__view::-webkit-scrollbar {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .rail__view {
+    scroll-snap-type: none;
+  }
+}
+.rail__view.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+.rail__view.is-dragging .slide__link {
+  pointer-events: none;
+}
+.rail__track {
+  display: flex;
+  gap: clamp(20px, 3.6vw, 64px);
+  width: max-content;
+  padding: clamp(28px, 4vw, 60px) max(var(--pad), calc(50vw - min(31vw, 34svh * 1.584)));
+  perspective: 1800px;
+}
+.slide {
+  position: relative;
+  flex: none;
+  /* width is capped by the viewport height so a slide always fits one screen */
+  width: min(62vw, 68svh * 1.584);
+  min-width: min(86vw, 320px);
+  scroll-snap-align: center;
+  /* depth: slides recede and turn as they leave the centre */
+  transform: translateZ(calc(var(--a, 0) * -160px)) rotateY(calc(var(--p, 0) * -9deg));
+  opacity: calc(1 - var(--a, 0) * 0.45);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.slide__link {
+  display: grid;
+  gap: clamp(16px, 1.8vw, 26px);
+  color: var(--marble);
+  -webkit-user-drag: none;
+}
+.slide__num {
+  position: absolute;
+  right: 0.02em;
+  top: -0.52em;
+  z-index: 0;
+  font-family: var(--f-head);
+  font-size: clamp(4.5rem, 12vw, 12rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(166, 217, 255, 0.28);
+  translate: calc(var(--p, 0) * -90px) 0;
+  pointer-events: none;
+}
+.slide__media {
+  position: relative;
+  z-index: 1;
+}
+/* the whole screenshot, uncropped */
+.slide .frame__view,
+.pcard .frame__view {
+  height: auto;
+  aspect-ratio: 800 / 505;
+}
+.slide .frame__img,
+.pcard .frame__img {
+  scale: 1;
+  object-fit: cover;
+  object-position: 50% 0%;
+  filter: none;
+  translate: calc(var(--p, 0) * -3%) 0;
+}
+@media (hover: hover) {
+  a:hover .slide .frame__img,
+  .slide__link:hover .frame__img,
+  .pcard__link:hover .frame__img {
+    scale: 1.035;
+  }
+}
+/* corner brackets: the frame is being measured */
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--blue-hi);
+  opacity: 0.9;
+  pointer-events: none;
+  transition: translate 0.6s var(--ease);
+}
+.frame::before {
+  left: -7px;
+  top: -7px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.frame::after {
+  right: -7px;
+  bottom: -7px;
+  border-left: 0;
+  border-top: 0;
+}
+@media (hover: hover) {
+  a:hover .frame::before {
+    translate: -5px -5px;
+  }
+  a:hover .frame::after {
+    translate: 5px 5px;
+  }
+}
+.slide__info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 24px;
+  align-items: start;
+}
+.slide__meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+.slide__title {
+  font-size: clamp(1.4rem, 3vw, 2.9rem);
+}
+.slide--end {
+  display: grid;
+  place-items: center;
+  width: min(46vw, 560px);
+}
+
+.rail__controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(18px, 3vw, 48px);
+  align-items: center;
+  padding: 0 var(--pad);
+  margin-top: clamp(8px, 1.4vw, 20px);
+}
+.rail__counter {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.rail__counter span {
+  font-family: var(--f-head);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--white);
+}
+.rail__counter i {
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+.rail__bar {
+  height: 1px;
+  background: var(--hair-2);
+}
+.rail__bar i {
+  display: block;
+  height: 100%;
+  background: var(--blue-hi);
+  box-shadow: 0 0 14px var(--blue-hi);
+  transform: scaleX(0.04);
+  transform-origin: 0 50%;
+  transition: transform 0.25s linear;
+}
+.rail__buttons {
+  display: flex;
+  gap: 10px;
+}
+.rail__btn {
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 5vw, 68px);
+  height: clamp(52px, 5vw, 68px);
+  border: 1px solid var(--hair-2);
+  border-radius: 50%;
+  background: rgba(5, 6, 9, 0.5);
+  font-family: var(--f-mono);
+  font-size: 1.15rem;
+  color: var(--white);
+  transition: background 0.4s, border-color 0.4s, opacity 0.3s, color 0.3s;
+}
+.rail__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+@media (hover: hover) {
+  .rail__btn:not(:disabled):hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    box-shadow: 0 0 32px -6px rgba(20, 108, 255, 0.9);
+  }
+}
+@media (max-width: 899.98px) {
+  .gallery__head {
+    grid-template-columns: 1fr;
+  }
+  .rail__track {
+    padding-inline: 7vw;
+  }
+  .slide {
+    width: 86vw;
+    transform: none;
+    opacity: 1;
+  }
+  .slide--end {
+    width: 70vw;
+  }
+  .slide__info {
+    grid-template-columns: 1fr;
+  }
+  .slide__info .tags {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---- call to action: a second light source ---- */
+.cta::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  bottom: -40%;
+  z-index: -1;
+  width: 70%;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(20, 108, 255, 0.28), rgba(20, 108, 255, 0));
+  pointer-events: none;
+}
+
+/* ---- footer wordmark: light travels across the letters ---- */
+.footer__mark {
+  color: transparent;
+  background: linear-gradient(100deg, var(--white) 0%, var(--white) 42%, var(--blue-hi) 50%, var(--white) 58%, var(--white) 100%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: mark-sweep 7s linear infinite;
+}
+.footer__mark em {
+  -webkit-text-stroke: 1px rgba(166, 217, 255, 0.6);
+}
+@keyframes mark-sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer__mark {
+    animation: none;
+    background-position: 0 0;
+  }
+}
+
+/* ---- carousel: neighbours must never overlap the centred slide ---- */
+.rail__track {
+  perspective: none;
+}
+.slide {
+  /* no 3D turn: it made adjacent slides bleed into each other */
+  transform: scale(calc(1 - var(--a, 0) * 0.06));
+  transform-origin: 50% 40%;
+  opacity: calc(1 - var(--a, 0) * 0.6);
+  overflow: hidden;
+  padding-top: clamp(40px, 5vw, 80px);
+}
+.slide__num {
+  top: 0;
+  translate: none;
+}
+/* text block is a single column; tags sit under the summary */
+.slide__info {
+  grid-template-columns: minmax(0, 1fr);
+}
+.slide__info .tags {
+  grid-column: 1;
+  grid-row: auto;
+  justify-content: flex-start;
+  max-width: none;
+  margin-top: 4px;
+}
+.slide__sum {
+  max-width: 52ch;
+}
+.frame::before,
+.frame::after {
+  display: none;
+}
+@media (max-width: 899.98px) {
+  .slide {
+    transform: none;
+    opacity: 1;
+  }
+}
