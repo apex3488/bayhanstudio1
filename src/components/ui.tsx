@@ -4,7 +4,7 @@ import { TLink } from "./Experience";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import { numerals, type ProjectMeta } from "@/content/data";
-import { site } from "@/lib/site";
+import { asset, site } from "@/lib/site";
 
 export function ButtonLink({
   href,
@@ -117,7 +117,7 @@ export function ProjectFrame({ project, alt, priority }: { project: ProjectMeta;
       </div>
       <div className="frame__view">
         <Image
-          src={project.image}
+          src={asset(project.image)}
           alt={alt}
           width={800}
           height={505}

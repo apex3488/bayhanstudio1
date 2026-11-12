@@ -19,6 +19,12 @@ export const site = {
   instagramUrl: "https://www.instagram.com/bayhan_studio01/",
 } as const;
 
+/** Sub-path the site is served from ("" on a root domain, "/repo" on GitHub Pages). */
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+/** Public-folder URL that respects the base path. */
+export const asset = (p: string) => `${basePath}${p}`;
+
 export const routes = ["", "/about", "/services", "/work", "/contact"] as const;
 
 export function localePath(locale: Locale, path = ""): string {

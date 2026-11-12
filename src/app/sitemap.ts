@@ -3,6 +3,8 @@ import { locales } from "@/i18n/config";
 import { projects } from "@/content/data";
 import { routes, site } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [...routes, ...projects.map((p) => `/work/${p.slug}`)];
   return paths.flatMap((path) =>

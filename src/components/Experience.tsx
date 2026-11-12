@@ -16,6 +16,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { disableMotion, initPageMotion, motionEnabled, registerMotion } from "@/lib/motion";
+import { basePath } from "@/lib/site";
 
 type Api = {
   navigate: (href: string) => void;
@@ -79,7 +80,7 @@ export function Experience({ children }: { children: ReactNode }) {
   const navigate = useCallback(
     (href: string) => {
       const url = new URL(href, window.location.href);
-      if (url.pathname === window.location.pathname) {
+      if (basePath + url.pathname === window.location.pathname.replace(/\/$/, "")) {
         window.dispatchEvent(new Event("experience:samepage"));
         if (lenis.current) lenis.current.scrollTo(0);
         else window.scrollTo({ top: 0 });

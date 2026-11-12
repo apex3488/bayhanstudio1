@@ -115,7 +115,7 @@ export default async function oracle(ctx: SceneCtx): Promise<SceneModule> {
   const bu = bustMat.userData.u;
   bu.uHoloOrigin.value.set(0, 1.95, 0);
 
-  const gltf = await new GLTFLoader().loadAsync("/models/bust/bust.gltf");
+  const gltf = await new GLTFLoader().loadAsync(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/bust/bust.gltf`);
   let bustMesh: THREE.Mesh | null = null;
   gltf.scene.traverse((o) => {
     if ((o as THREE.Mesh).isMesh && !bustMesh) bustMesh = o as THREE.Mesh;

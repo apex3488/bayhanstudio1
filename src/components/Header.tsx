@@ -7,7 +7,7 @@ import { TLink, useExperience } from "./Experience";
 import { LOCALE_COOKIE, locales, switchLocalePath, type Locale } from "@/i18n/config";
 import type { Chrome } from "@/i18n/get-dictionary";
 import { numerals } from "@/content/data";
-import { site } from "@/lib/site";
+import { basePath, site } from "@/lib/site";
 import { motionEnabled } from "@/lib/motion";
 
 type Props = { locale: Locale; dict: Chrome };
@@ -164,7 +164,7 @@ export default function Header({ locale, dict }: Props) {
         <div className="header__right">
           <nav className="header__nav" aria-label={dict.menu.label}>
             {links.map((l) => (
-              <a key={l.href} href={l.href}>
+              <a key={l.href} href={`${basePath}${l.href}`}>
                 {l.label}
               </a>
             ))}
